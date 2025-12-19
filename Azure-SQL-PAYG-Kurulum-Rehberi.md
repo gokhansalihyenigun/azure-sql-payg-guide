@@ -157,7 +157,7 @@ Etiket eklemek istemiyorsanız **"Next: Review + submit >"** butonuna tıklayın
 2. ✅ **Validation passed** mesajını görürsünüz
 
 3. **Tahmini aylık maliyet** gösterilir
-   - Örnek: ~$1,140/month (16 core için)
+   - Örnek: ~$4,380/month (16 core için)
 
 4. **"Submit"** veya **"Create"** butonuna tıklayın
 
@@ -212,15 +212,18 @@ Lisans kaynağınızın Overview sayfası açılır:
 - **Ödeme**: Aylık, Azure faturanızda görünür
 - **Minimum**: 4 core
 
-### Örnek Maliyetler (Tahmini)
+### Örnek Maliyetler
+
+**Enterprise Edition PAYG Fiyatı:** $273.75/core/ay
 
 | Core Sayısı | Aylık Maliyet (USD) |
 |-------------|---------------------|
-| 8 cores | ~$570 |
-| 16 cores | ~$1,140 |
-| 32 cores | ~$2,280 |
+| 4 cores (minimum) | $1,095 |
+| 8 cores | $2,190 |
+| 16 cores | $4,380 |
+| 32 cores | $8,760 |
 
-**💡 Not:** Fiyatlar bölgeye göre değişir. Güncel fiyat için [Azure Pricing Calculator](https://azure.microsoft.com/pricing/calculator/) kullanın.
+**💡 Not:** Fiyatlar bölgeye göre değişebilir. Güncel fiyat için [Azure Pricing Calculator](https://azure.microsoft.com/pricing/calculator/) kullanın.
 
 ---
 
