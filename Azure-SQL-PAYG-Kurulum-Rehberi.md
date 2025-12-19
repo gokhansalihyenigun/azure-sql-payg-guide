@@ -34,63 +34,41 @@ FROM sys.dm_os_sys_info;
 
 ---
 
-## 🚀 Kurulum Adımları
+## 🚀 Kurulum Adımları (Sadece 3 Adım!)
 
-### Adım 1: Azure Portal'a Giriş
+### Adım 1: Azure Portal'a Giriş ve SQL Server Licensing Sayfasına Git
 
 1. Tarayıcınızdan **[portal.azure.com](https://portal.azure.com)** adresine gidin
 2. Azure hesabınızla giriş yapın
-3. Doğru abonelikte olduğunuzdan emin olun
+3. Portal üst kısmındaki **🔍 arama çubuğuna** tıklayın
+4. **"sql server licensing"** yazın
+5. Açılan listeden **"SQL Server licensing"** seçeneğini seçin
 
-![Azure Portal ana sayfası - Sağ üstte kullanıcı adınız ve abonelik seçimi görünür]
+![Azure Portal - Arama çubuğunda "sql server licensing" yazılı, dropdown menüde seçenek görünüyor]
 
----
+**SQL Server licensing** sayfası açılır.
 
-### Adım 2: Azure Arc Bölümüne Gidin
+![SQL Server licensing sayfası - "No sql server licenses to display" mesajı ve sağ altta mavi "Create" butonu]
 
-**Yöntem 1: Arama ile (Önerilen)**
-
-1. Portal üst kısmındaki **🔍 arama çubuğuna** tıklayın
-2. **"Azure Arc"** yazın
-3. Açılan listeden **"Azure Arc"** seçeneğini seçin
-
-![Arama çubuğunda "Azure Arc" yazılı, dropdown menüde Azure Arc servisi görünüyor]
-
-**Yöntem 2: Direkt arama**
-
-- Arama çubuğuna **"SQL Server licenses"** yazıp direkt seçebilirsiniz
+Sağ altta veya üst menüde **"Create"** butonunu göreceksiniz.
 
 ---
 
-### Adım 3: SQL Server Licenses Sayfasına Eriş
+### Adım 2: Lisans Oluştur ve Bilgileri Doldurun
 
-1. Azure Arc sayfasında **sol menüden** şu yolu izleyin:
-   - **Data Services** bölümünü genişletin
-   - **"SQL Server licenses"** seçeneğine tıklayın
+1. **"Create"** butonuna tıklayın
 
-![Sol menü: Data Services altında SQL Server licenses seçeneği vurgulanmış]
-
-2. SQL Server licenses sayfası açılır
-3. Üst kısımda **"+ Create"** butonunu göreceksiniz
-
-![SQL Server licenses sayfası - Boş liste ve üstte "+ Create" butonu]
-
----
-
-### Adım 4: Yeni Lisans Oluştur
-
-1. **"+ Create"** butonuna tıklayın
 2. Açılan pencerede iki seçenek göreceksiniz:
    - ⚪ SQL Server virtual core license
    - 🔘 **SQL Server physical core license** ← **BUNU SEÇİN**
 
 ![Lisans tipi seçim ekranı - "SQL Server physical core license" seçili]
 
-3. **"Select"** veya **"Continue"** butonuna tıklayın
+3. **"Select"** butonuna tıklayın
 
 ---
 
-### Adım 5: Temel Bilgileri Doldurun
+### Adım 3: Bilgileri Doldurun ve Oluştur
 
 Artık kurulum sihirbazı açıldı. Aşağıdaki alanları doldurun:
 
@@ -125,76 +103,45 @@ Artık kurulum sihirbazı açıldı. Aşağıdaki alanları doldurun:
 
 ---
 
-### Adım 6: Etiketleme (Opsiyonel)
+**Opsiyonel - Etiket Ekleyin:**
 
-**"Next: Tags"** butonuna tıklayın.
+İsterseniz **"Next: Tags"** diyerek etiket ekleyin (Environment: Production gibi), veya direkt **"Review + create"** yapın.
 
-İsterseniz etiket ekleyin (maliyet takibi için faydalı):
-
-| Name | Value |
-|------|-------|
-| Environment | Production |
-| Application | Database |
-
-![Tags sekmesi - Örnek etiketler eklenmiş]
-
-Etiket eklemek istemiyorsanız direkt **"Next: Review + create"** yapın.
-
----
-
-### Adım 7: Gözden Geçir ve Oluştur
+**Review + Create:**
 
 1. **"Review + create"** butonuna tıklayın
-2. Azure, bilgilerinizi doğrular (**✅ Validation passed** görünür)
-3. Özet bilgileri kontrol edin:
-   - ✅ Core sayısı doğru mu?
-   - ✅ PAYG seçili mi?
-   - ✅ Activated işaretli mi?
+2. ✅ **Validation passed** mesajını görün
+3. **Tahmini aylık maliyet** kontrol edin (örn: ~$1,140/month)
+4. **"Create"** butonuna tıklayın
 
-![Review + create sayfası - Tüm bilgiler özetlenmiş, "Validation passed" mesajı]
-
-4. **Tahmini aylık maliyet** gösterilir
-   - Örnek: `Estimated cost: ~$1,140/month` (16 core için)
-
-5. Her şey tamam ise **"Create"** butonuna tıklayın
+![Review + create sayfası - Validation passed, tahmini maliyet gösteriliyor]
 
 ---
 
-### Adım 8: Deployment Tamamlandı! 🎉
+### ✅ Tamamlandı!
 
-Deployment başlar ve genellikle **30-60 saniye** içinde tamamlanır.
+Deployment **30-60 saniye** içinde tamamlanır.
 
 ![Deployment in progress... yükleme çubuğu]
 
-Tamamlandığında:
-
-**✅ Your deployment is complete**
+✅ **Your deployment is complete** mesajını görünce **"Go to resource"** butonuna tıklayın.
 
 ![Deployment complete ekranı - Yeşil onay işareti]
 
-**"Go to resource"** butonuna tıklayın.
-
----
-
-### Adım 9: Lisansınızı Görüntüleyin
-
-Lisans kaynağınızın detay sayfası açılır:
+**Lisansınızın detayları:**
 
 ![SQL Server license - Overview sayfası]
 
-**Essentials** bölümünde şunları göreceksiniz:
-
-| Bilgi | Değer |
-|-------|-------|
-| **Status** | ✅ Activated |
-| **Billing Plan** | PAYG |
-| **Edition** | Enterprise |
-| **Physical Cores** | 16 |
-| **Location** | West Europe |
+**Essentials** bölümünde göreceksiniz:
+- **Status**: ✅ Activated
+- **Billing Plan**: PAYG
+- **Edition**: Enterprise
+- **Physical Cores**: 16
+- **Location**: West Europe
 
 ---
 
-## ✅ Kurulum Tamamlandı!
+## 🎉 Kurulum Tamamlandı!
 
 **Tebrikler!** SQL Server Enterprise lisansınız artık aktif.
 
