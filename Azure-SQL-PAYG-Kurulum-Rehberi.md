@@ -210,7 +210,7 @@ Lisans kaynağınızın Overview sayfası açılır:
 
 - **Birim**: Core başına saat
 - **Ödeme**: Aylık, Azure faturanızda görünür
-- **Minimum**: 4 core
+- **Minimum**: 16 core
 
 ### Örnek Maliyetler
 
@@ -218,10 +218,10 @@ Lisans kaynağınızın Overview sayfası açılır:
 
 | Core Sayısı | Aylık Maliyet (USD) |
 |-------------|---------------------|
-| 4 cores (minimum) | $1,095 |
-| 8 cores | $2,190 |
-| 16 cores | $4,380 |
+| 16 cores (minimum) | $4,380 |
+| 24 cores | $6,570 |
 | 32 cores | $8,760 |
+| 64 cores | $17,520 |
 
 **💡 Not:** Fiyatlar bölgeye göre değişebilir. Güncel fiyat için [Azure Pricing Calculator](https://azure.microsoft.com/pricing/calculator/) kullanın.
 
