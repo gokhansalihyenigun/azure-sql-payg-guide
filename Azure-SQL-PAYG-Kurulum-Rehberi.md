@@ -44,106 +44,157 @@ FROM sys.dm_os_sys_info;
 4. **"sql server licensing"** yazın
 5. Açılan listeden **"SQL Server licensing"** seçeneğini seçin
 
-![Azure Portal - Arama çubuğunda "sql server licensing" yazılı, dropdown menüde seçenek görünüyor]
+![Azure Portal - Arama çubuğunda "sql server licensing" yazılı]
 
-**SQL Server licensing** sayfası açılır.
+**SQL Server licensing** sayfası açılır. "No sql server licenses to display" mesajı ve sağ altta mavi **"Create"** butonu görürsünüz.
 
-![SQL Server licensing sayfası - "No sql server licenses to display" mesajı ve sağ altta mavi "Create" butonu]
-
-Sağ altta veya üst menüde **"Create"** butonunu göreceksiniz.
+![SQL Server licensing sayfası - Boş liste ve Create butonu]
 
 ---
 
-### Adım 2: Lisans Oluştur ve Bilgileri Doldurun
+### Adım 2: Lisans Bilgilerini Doldurun
 
-1. **"Create"** butonuna tıklayın
+**"Create"** butonuna tıklayın. **"Create a SQL Server physical core license"** formu açılır.
 
-2. Açılan pencerede iki seçenek göreceksiniz:
-   - ⚪ SQL Server virtual core license
-   - 🔘 **SQL Server physical core license** ← **BUNU SEÇİN**
+![Create a SQL Server physical core license - Form açıldı]
 
-![Lisans tipi seçim ekranı - "SQL Server physical core license" seçili]
-
-3. **"Select"** butonuna tıklayın
+Form **5 sekmeden** oluşur:
+1. ✅ **Basics**
+2. **License details**
+3. **License Activation**
+4. **Tags**
+5. **Review + submit**
 
 ---
 
-### Adım 3: Bilgileri Doldurun ve Oluştur
+#### 📋 Sekme 1: Basics
 
-Artık kurulum sihirbazı açıldı. Aşağıdaki alanları doldurun:
-
-![Create SQL Server physical core license formu - Basics sekmesi]
-
-#### 📂 Project Details
+**Project details:**
 
 | Alan | Ne Yazmalı | Örnek |
 |------|------------|-------|
-| **Subscription** | Azure aboneliğinizi seçin | Azure Subscription 1 |
-| **Resource group** | Mevcut grup seçin veya "Create new" | `rg-sql-licenses` |
+| **Subscription** | Azure aboneliğinizi seçin | MCPP Subscription |
+| **Resource group** | Mevcut grup seçin veya yeni oluşturun | `rg-sql-licenses` |
 
-#### 📝 Instance Details
+**Instance details:**
 
 | Alan | Ne Yazmalı | Örnek |
 |------|------------|-------|
-| **License name** | Lisans için benzersiz isim | `sql-enterprise-prod-001` |
-| **Region** | Size en yakın bölge | West Europe |
+| **Name** | Lisans için benzersiz isim | `sql-payg-prod-001` |
+| **Region** | Size en yakın bölge | East US veya West Europe |
 
-#### ⚙️ License Configuration
+![Basics sekmesi - Tüm alanlar doldurulmuş]
+
+**"Next: License details >"** butonuna tıklayın.
+
+---
+
+#### 📋 Sekme 2: License details
 
 | Alan | Ne Seçmeli | Açıklama |
 |------|------------|----------|
-| **Billing Plan** | **PAYG** | Pay-as-you-go seçin |
-| **Physical Cores** | Core sayınız | Örn: `16` |
-| **Edition** | **Enterprise** | Enterprise seçin |
-| **Activation State** | ☑️ **Activated** | Hemen aktif et |
+| **License category** | `Core` | Otomatik seçili (değiştirmeyin) |
+| **Scope type** | `Single Resource group` | Tek kaynak grubu için |
+| **Billing plan** | **`Pay-as-you-go ("PAYG")`** | ← **Bunu seçin** |
+| **Physical cores** | Core sayınız | Örn: `16` |
 
-![Form doldurulmuş hali: PAYG, 16 cores, Enterprise, Activated]
+![License details - Billing plan: Pay-as-you-go, Physical cores: 16]
 
-**💡 İpucu:** Minimum 4 core girmelisiniz.
+**💡 İpucu:**
+- **Scope type** seçenekleri: Single Resource group, Subscription, Tenant
+- **Billing plan** seçenekleri:
+  - **Pay-as-you-go ("PAYG")** ← Kullandığınız kadar öde
+  - Paid (Mevcut lisansınız varsa)
 
----
-
-**Opsiyonel - Etiket Ekleyin:**
-
-İsterseniz **"Next: Tags"** diyerek etiket ekleyin (Environment: Production gibi), veya direkt **"Review + create"** yapın.
-
-**Review + Create:**
-
-1. **"Review + create"** butonuna tıklayın
-2. ✅ **Validation passed** mesajını görün
-3. **Tahmini aylık maliyet** kontrol edin (örn: ~$1,140/month)
-4. **"Create"** butonuna tıklayın
-
-![Review + create sayfası - Validation passed, tahmini maliyet gösteriliyor]
+**"Next: License Activation >"** butonuna tıklayın.
 
 ---
 
-### ✅ Tamamlandı!
+#### 📋 Sekme 3: License Activation
+
+**Activation options:** (Ne zaman aktif etmek istiyorsunuz?)
+
+⚪ **I will activate the license later** (Sonra aktif ederim)
+🔘 **I want to activate the license immediately** ← **BUNU SEÇİN**
+
+![License Activation - "I want to activate the license immediately" seçili]
+
+**Ekranda 2 bilgilendirme mesajı görürsünüz:**
+
+🟠 **Turuncu uyarı:**
+> "To activate the license, you must have connected machines in the license's scope that are configured to use the physical core license."
+
+🔵 **Mavi bilgi:**
+> "Once the license is activated, it will take effect on the eligible resources in the license scope immediately and the hourly billing using an Enterprise edition meter will start today."
+
+**"Next: Tags >"** butonuna tıklayın.
+
+---
+
+#### 📋 Sekme 4: Tags (Opsiyonel)
+
+İsterseniz etiket ekleyin (maliyet takibi için faydalı):
+
+| Name | Value |
+|------|-------|
+| Environment | Production |
+| Application | Database |
+
+Etiket eklemek istemiyorsanız **"Next: Review + submit >"** butonuna tıklayın.
+
+---
+
+### Adım 3: Gözden Geçir ve Oluştur
+
+#### 📋 Sekme 5: Review + submit
+
+1. Tüm bilgilerinizi gözden geçirin:
+   - ✅ Subscription doğru mu?
+   - ✅ Core sayısı doğru mu?
+   - ✅ Billing plan PAYG seçili mi?
+   - ✅ Activation "immediately" seçili mi?
+
+2. ✅ **Validation passed** mesajını görürsünüz
+
+3. **Tahmini aylık maliyet** gösterilir
+   - Örnek: ~$1,140/month (16 core için)
+
+4. **"Submit"** veya **"Create"** butonuna tıklayın
+
+![Review + submit - Validation passed, özet bilgiler]
+
+---
+
+## ✅ Kurulum Tamamlandı!
 
 Deployment **30-60 saniye** içinde tamamlanır.
 
-![Deployment in progress... yükleme çubuğu]
+![Deployment in progress]
 
-✅ **Your deployment is complete** mesajını görünce **"Go to resource"** butonuna tıklayın.
+✅ **"Your deployment is complete"** mesajını görünce **"Go to resource"** butonuna tıklayın.
 
-![Deployment complete ekranı - Yeşil onay işareti]
+![Deployment complete - Yeşil onay işareti]
 
-**Lisansınızın detayları:**
+---
+
+## 📊 Lisansınız Aktif!
+
+Lisans kaynağınızın Overview sayfası açılır:
 
 ![SQL Server license - Overview sayfası]
 
 **Essentials** bölümünde göreceksiniz:
 - **Status**: ✅ Activated
 - **Billing Plan**: PAYG
-- **Edition**: Enterprise
 - **Physical Cores**: 16
-- **Location**: West Europe
+- **Location**: East US
+- **Resource ID**: Benzersiz kaynak kimliği
 
 ---
 
-## 🎉 Kurulum Tamamlandı!
+## 🎉 Tebrikler!
 
-**Tebrikler!** SQL Server Enterprise lisansınız artık aktif.
+**SQL Server Enterprise lisansınız artık aktif ve faturalandırma başladı.**
 
 ### 🎯 Bundan Sonra Ne Olacak?
 
@@ -182,8 +233,6 @@ Deployment **30-60 saniye** içinde tamamlanır.
 3. **Physical Cores** değerini değiştirin
 4. **"Save"** yapın
 
-![Configure sayfası - Core sayısı değiştirme]
-
 **Değişiklik anında yürürlüğe girer.**
 
 ---
@@ -193,8 +242,9 @@ Deployment **30-60 saniye** içinde tamamlanır.
 **Geçici olarak durdurmak:**
 
 1. Lisans kaynağına gidin
-2. **Configure** > **Activation State** > ☐ Activated işaretini kaldırın
-3. Save
+2. **"Configure"** tıklayın
+3. **License Activation** bölümünde **"Deactivate"** seçin
+4. Save
 
 **Faturalandırma durur, kaynak kalır.**
 
@@ -218,8 +268,6 @@ Deployment **30-60 saniye** içinde tamamlanır.
    - Resource type: `SqlServerLicenses`
    - Date range: Last 30 days
 
-![Cost Management - SQL Server PAYG maliyetleri grafik halinde]
-
 Aylık harcamanızı gerçek zamanlı takip edebilirsiniz.
 
 ---
@@ -231,7 +279,7 @@ Denetim veya soru sorulduğunda:
 > **"SQL Server Enterprise lisansımızı Azure üzerinden Pay-As-You-Go modeli ile alıyoruz. Kullandığımız kadar ödeme yapıyoruz. İşte Azure Portal'daki lisans kaydımız ve fatura detaylarımız."**
 
 **Kanıt olarak gösterin:**
-- ✅ Azure Portal'daki lisans kaynağı
+- ✅ Azure Portal'daki lisans kaynağı (Overview sayfası)
 - ✅ Cost Management'tan fatura detayları
 - ✅ Aylık ödeme kayıtları
 
@@ -258,10 +306,19 @@ C: **Hayır**, istediğiniz zaman iptal edebilirsiniz.
 C: **Hayır**, saatlik bazda ödeme yaparsınız (pro-rated).
 
 **S: Lisansı durdurabilir miyim?**
-C: **Evet**, Deactivated yapabilir veya silebilirsiniz.
+C: **Evet**, Deactivate yapabilir veya silebilirsiniz.
 
 **S: Core sayısını değiştirebilir miyim?**
 C: **Evet**, istediğiniz zaman Configure'den değiştirebilirsiniz.
+
+**S: "I will activate the license later" seçersem ne olur?**
+C: Lisans kaydı oluşturulur ama faturalandırma başlamaz. İstediğiniz zaman Activate edebilirsiniz.
+
+**S: Scope type ne anlama geliyor?**
+C:
+- **Single Resource group**: Sadece bir kaynak grubu için
+- **Subscription**: Abonelik genelinde
+- **Tenant**: Tüm tenant için
 
 ---
 
@@ -283,7 +340,7 @@ C: **Evet**, istediğiniz zaman Configure'den değiştirebilirsiniz.
 
 Sorularınız için:
 - 📧 Azure Portal > Help + support
-- 📚 [Microsoft Learn Dokümantasyonu](https://learn.microsoft.com/azure/azure-arc/)
+- 📚 [Microsoft Learn Dokümantasyonu](https://learn.microsoft.com/sql/sql-server/azure-arc/manage-license-billing)
 
 ---
 
@@ -293,5 +350,5 @@ Azure SQL Server PAYG ile esnek, güvenilir ve şeffaf lisanslama deneyimi yaşa
 
 ---
 
-**Doküman Versiyonu:** 3.0
+**Doküman Versiyonu:** 4.0 (Gerçek ekran görüntülerine göre güncellendi)
 **Tarih:** 19 Aralık 2024
